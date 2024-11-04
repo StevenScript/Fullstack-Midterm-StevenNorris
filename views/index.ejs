@@ -1,22 +1,33 @@
 <html lang="en">
-    <head>
-        <title>Restaurants</title>
-        <link rel="stylesheet" type="text/css" href="./styles.css">
-        <link rel="preconnect" href="https://fonts.googleapis.com">
-    </head>
-    <body>
-        <main class="main-content">
-            <h1>Restaurant Menus</h1>
-            <h2>Please choose your restaurant to get the menu</h2>
-            <form action="/restaurant" method="GET">
-                <label for="restaurantId">Select a restaurant:</label>
-                <select name="restaurantId" id="restaurantId">
-                    <% restaurants.forEach((restaurant) => { %>
-                        <option value="<%= restaurant.id %>"><%= restaurant.name %></option>
-                    <% }) %>
-                </select>
-                <button type="submit">Get the menu!</button>
-            </form>
-        </main>
-    </body>
+  <head>
+    <title>Restaurants</title>
+    <link rel="stylesheet" type="text/css" href="./styles.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+  </head>
+  <body>
+    <main class="main-content">
+      <h1>Restaurant Menus</h1>
+      <h2>Please choose your restaurant to get the menu</h2>
+      <form action="/restaurant" method="GET">
+        <label for="restaurantId">Select a restaurant:</label>
+        <select name="restaurantId" id="restaurantId">
+          <% restaurants.forEach((restaurant) => { %>
+          <option value="<%= restaurant.id %>"><%= restaurant.name %></option>
+          <% }) %>
+        </select>
+        <button type="submit">Get the menu!</button>
+      </form>
+      <div>
+        <h2>Random Menu Item</h2>
+        <p>From: <%= randomMenuItem.restaurantName %></p>
+        <p>Name: <%= randomMenuItem.item.name %></p>
+        <p>Description: <%= randomMenuItem.item.description %></p>
+        <p>Price: $<%= randomMenuItem.item.price %></p>
+        <% if (randomMenuItem.item.isSpecial) { %>
+        <p><strong>Today's Special!</strong></p>
+        <% } %>
+      </div>
+      <a href="/menu-alerts">View Menu Alerts</a>
+    </main>
+  </body>
 </html>

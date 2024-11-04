@@ -1,0 +1,25 @@
+<html lang="en">
+  <head>
+    <title><%= restaurantName %> Menu</title>
+    <link rel="stylesheet" type="text/css" href="/styles.css" />
+  </head>
+  <body>
+    <main class="main-content">
+      <h1><%= restaurantName %></h1>
+      <h2>Cuisine Type: <%= cuisineType %></h2>
+      <ul>
+        <% menuItems.forEach((item) => { %>
+        <li>
+          <h3><%= item.name %></h3>
+          <p><%= item.description %></p>
+          <p>Price: $<%= item.price %></p>
+          <% if (item.isSpecial) { %>
+          <p><strong>Today's Special!</strong></p>
+          <% } %>
+        </li>
+        <% }); %>
+      </ul>
+      <a href="/">Back to Home</a>
+    </main>
+  </body>
+</html>
