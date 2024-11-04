@@ -40,11 +40,32 @@ app.get("/", (request, response) => {
  */
 app.get("/restaurant", (request, response) => {
   const restaurantId = request.query.restaurantId;
+  const restaurant = restaurantData[restaurantId];
   console.log(`restaurantId: ${restaurantId}`);
-  //Get the restaurants menu, and then display the page
+  if (restaurant) {
+    response.render("restaurant", {
+      restaurantName: restaurant.name,
+      cuisineType: restaurant.cuisineType,
+      menuItems: restaurant.menu,
+    });
+  } else {
+    response.status(404).send("Restaurant not found");
+  }
 });
 
-//Add any other required routes here
+// Checks if there are any daily specials.
+app.get("/menu-alerts", (request, response) => {
+  const alerts = Restaurants.map((restaurant) => {
+    const data = restaurantData[restaurant.id];
+    const specials = data.menu.filter((item) => item.isSpecial);
+    return {
+      name: data.name,
+      specials: specials.length > 0 ? specials : null,
+    };
+  });
+
+  response.render("menu-alerts", { alerts });
+});
 
 const port = 3000;
 app.listen(port, () => {
